@@ -19,10 +19,15 @@ RUN wget http://apache.mirror.cdnetworks.com/tomcat/tomcat-8/v8.5.32/bin/apache-
 RUN unzip /opt/apache-tomcat-8.5.32.zip -d /opt
 RUN chmod 700 /opt/apache-tomcat-8.5.32/bin/*.sh
 
-COPY ROOT.war /opt/apache-tomcat-8.5.32/webapps
-COPY restart.sh /opt
-COPY shutdown.sh /opt
-COPY startup.sh /opt
-COPY boardDB.db /opt/dockerbio/db
-COPY Async-0.0.1-SNAPSHOT.jar /opt/dockerbio
-COPY SpringbootFileupload-1.0.jar /opt/dockerbio
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/ROOT.war -P /opt/apache-tomcat-8.5.32/webapps/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/Async-0.0.1-SNAPSHOT.jar -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/SpringbootFileupload-1.0.jar -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/boardDB.db -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/restart.sh -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/startup.sh -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/shutdown.sh -P /opt/
+RUN wget https://github.com/jasonkimMGB/dockerbio/raw/master/latest/shutdown.sh -P /opt/dockerbio/db
+
+
+#ENTRYPOINT ["/bin/bash"]
+#ENTRYPOINT ["bash","/opt/startup.sh","/opt/shutdown.sh","/opt/startup.sh"]
